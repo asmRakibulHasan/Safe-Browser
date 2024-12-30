@@ -95,12 +95,8 @@ class CustomDnsWebViewClient : WebViewClient() {
         handler: SslErrorHandler?,
         error: SslError?
     ) {
-        // By default, if we do nothing, the WebView may show a warning or bypass.
-        // To BLOCK loading when there's any SSL error:
-        handler?.cancel() // This stops loading entirely.
+        handler?.cancel()
 
-        // Alternatively, if you *wanted* to ignore the SSL error, you'd do handler.proceed().
-        // But in your case, you want to block => use handler.cancel().
     }
 
 

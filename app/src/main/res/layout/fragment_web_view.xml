@@ -8,16 +8,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WebViewFragment">
 
-
-
-
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/controlPanel"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/controlPanel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#D5F1F1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/left_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rightBtn"/>
+
+        <ImageView
+            android:id="@+id/rightBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right_icon"
+            app:layout_constraintStart_toEndOf="@+id/leftBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/homeBtn"/>
+
+        <ImageView
+            android:id="@+id/homeBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/home_icon"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:layout_constraintStart_toEndOf="@+id/rightBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

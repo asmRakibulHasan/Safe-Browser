@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.safebrowser.databinding.FragmentLandingBinding
 import com.example.safebrowser.databinding.FragmentWebViewBinding
 import com.example.safebrowser.viewmodel.WebViewModel
@@ -44,6 +45,19 @@ class WebViewFragment : Fragment() {
 
         webViewModel?.inputUrl?.let { webView.loadUrl(it) }
 
+        binding.homeBtn.setOnClickListener{
+            findNavController().navigateUp()
+        }
+        binding.leftBtn.setOnClickListener{
+            if(webView.canGoBack()){
+                webView.goBack()
+            }
+        }
+        binding.rightBtn.setOnClickListener{
+            if(webView.canGoForward()){
+                webView.goForward()
+            }
+        }
     }
 
 }
