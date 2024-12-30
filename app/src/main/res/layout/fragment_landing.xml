@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter your URL"
             android:inputType="textUri"
+            android:textColorHint="#929191"
             android:textColor="@color/black"
             android:layout_margin="@dimen/_25sdp"
             app:layout_constraintStart_toStartOf="parent"
