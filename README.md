@@ -13,6 +13,12 @@
 2. Authorized URLs load securely, while unauthorized ones are blocked.
 3. Enjoy peace of mind with automatic protection against harmful content.
 
+## Screenshots
+<img src="https://github.com/asmRakibulHasan/Safe-Browser/blob/master/screenshot1.jpg" alt="Screenshot 1" width="300" height="520">
+<img src="https://github.com/asmRakibulHasan/Safe-Browser/blob/master/screenshot2.jpg" alt="Screenshot 2" width="300" height="520">
+<img src="https://github.com/asmRakibulHasan/Safe-Browser/blob/master/screenshot3.jpg" alt="Screenshot 3" width="300" height="520">
+
+
 ## Getting Started
 1. Install [Android Studio](https://developer.android.com/studio) version `Ladybug (2024.2.1)` or higher.
 2. Clone the repository:
