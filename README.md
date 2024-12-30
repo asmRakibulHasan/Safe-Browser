@@ -1,6 +1,6 @@
 # Safe Browser Powered by Kahf Guard
 
-**Safe Browser** is an Android browser app that ensures secure and ethical browsing with the power of **Kahf Guard**. It blocks unauthorized URLs, providing a seamless and protected browsing experience.
+**Safe Browser** is an Android browser app that ensures secure and ethical browsing with the power of [**Kahf Guard**](https://kahfguard.com/). It blocks unauthorized URLs, providing a seamless and protected browsing experience.
 
 ## Key Features
 - **Automatic Protection**: No need to manually set up private DNS. Just install and run the app — you're instantly protected from any haram URLs.
