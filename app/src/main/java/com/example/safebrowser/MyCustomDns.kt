@@ -6,7 +6,7 @@ import java.net.UnknownHostException
 
 object MyCustomDnsResolver {
 
-    private const val CUSTOM_DNS_SERVER = "51.142.0.101" // or IP of that server if you prefer
+    private const val CUSTOM_DNS_SERVER = "51.142.0.101" //  IP or URL
 
     /**
      * Manually resolve the given [hostname] by querying the custom DNS server.

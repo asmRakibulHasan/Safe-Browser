@@ -1,17 +1,18 @@
 package com.example.safebrowser
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.net.InetSocketAddress
-import java.net.Proxy
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
@@ -38,10 +39,9 @@ class MainActivity : AppCompatActivity() {
         webView.clearCache(true)
 
         // Use our custom WebViewClient that intercepts requests
-        webView.webViewClient = CustomDnsWebViewClient()
+        webView.webViewClient = CustomDnsWebViewClient() /// kahf guard client
+//        webView.webViewClient = WebViewClient() /// normal client
 
-        // OPTIONAL: If you also want to handle custom error pages, you can override
-        // onReceivedError(...) or onReceivedHttpError(...) in your WebViewClient.
 
 
         urlEditText = findViewById(R.id.urlEditText)
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         loadButton.setOnClickListener {
             val url = urlEditText.text.toString()
             if (url.isNotBlank()) {
-                webView.loadUrl(processUrl(url))
+                checkForDns(processUrl(url))
             } else {
                 Toast.makeText(this, "Please enter a valid URL", Toast.LENGTH_SHORT).show()
             }
@@ -58,6 +58,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun checkForDns(url: String){
+        lifecycleScope.launch(Dispatchers.IO) {
+            val canResolve = canResolveUrl(url)
+            withContext(Dispatchers.Main) {
+                if (canResolve) {
+                    webView.loadUrl(url)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "DNS resolution failed for $url",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     // Validate and format the URL
@@ -74,48 +91,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Check proxy access
-    private fun checkProxyAccess(url: String) {
-        // Configure the proxy
-        val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(proxyIP, proxyPort))
 
-        // Configure OkHttpClient with the proxy
-        val client = OkHttpClient.Builder()
-            .proxy(proxy)
-            .build()
-
-        // Create the request
-        val request = Request.Builder()
-            .url(url)
-            .build()
-
-        // Perform the network request in a background thread
-        Thread {
-            try {
-                val response = client.newCall(request).execute()
-                val statusCode = response.code
-                val message = if (statusCode == 200) {
-                    "Proxy is working! Response Code: $statusCode"
-                } else {
-                    "Proxy failed with Response Code: $statusCode"
-                }
-                runOnUiThread {
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-                }
-                response.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                runOnUiThread {
-                    Toast.makeText(this, "Request failed: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
-                }
-            }
-        }.start()
+    private fun canResolveUrl(url: String): Boolean {
+        val host = Uri.parse(url).host.orEmpty()
+        return try {
+            val addresses = MyCustomDnsResolver.resolve(host)
+            addresses.isNotEmpty()
+        } catch (e: Exception) {
+            false
+        }
     }
-
-
-
-
-
 
 }
 

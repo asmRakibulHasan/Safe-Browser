@@ -14,7 +14,6 @@ class CustomDnsWebViewClient : WebViewClient() {
 
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
-        // Optional: show a loader, progress bar, etc.
     }
 
     override fun shouldInterceptRequest(
@@ -68,7 +67,7 @@ class CustomDnsWebViewClient : WebViewClient() {
             return WebResourceResponse(
                 null,             // mimeType
                 null,             // encoding
-                403,              // statusCode (you could choose another)
+                403,              // statusCode
                 "SSL Error",      // reasonPhrase MUST NOT be an empty string
                 null,             // responseHeaders
                 null              // inputStream
